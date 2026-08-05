@@ -1,0 +1,754 @@
+<!-- Crédit HTML : Foufy_2.0 -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google HTML Previewer - Foufy_2.0</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500;600&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --g-blue: #1A73E8;
+            --g-red: #EA4335;
+            --g-yellow: #FBBC04;
+            --g-green: #34A853;
+
+            --bg-color: #E1E5EB;
+            --card-bg: #FFFFFF;
+            --text-dark: #1F1F1F;
+            --text-subtle: #444746;
+            --border-color: #C4C7C5;
+            --font-google: 'Roboto', sans-serif;
+            --font-code: 'Roboto Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            font-family: var(--font-google);
+            font-weight: 500;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 1px 3px 0 rgba(0,0,0,0.08);
+            z-index: 10;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .lang-toggle {
+            display: flex;
+            align-items: center;
+            background: #F1F3F4;
+            border-radius: 100px;
+            padding: 2px;
+            border: 1px solid var(--border-color);
+            transform: translateY(2px);
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            padding: 4px 16px;
+            border-radius: 100px;
+            font-family: var(--font-google);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-subtle);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active {
+            background: #FFFFFF;
+            color: var(--g-blue);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .lang-btn:hover:not(.active) {
+            color: var(--text-dark);
+            background: rgba(0,0,0,0.03);
+        }
+
+        .google-logo {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            user-select: none;
+        }
+
+        .google-logo .g-blue { color: var(--g-blue); }
+        .google-logo .g-red { color: var(--g-red); }
+        .google-logo .g-yellow { color: var(--g-yellow); }
+        .google-logo .g-green { color: var(--g-green); }
+
+        .app-title {
+            color: var(--text-subtle);
+            font-size: 19px;
+            font-weight: 500;
+            margin-left: 10px;
+            padding-left: 10px;
+            border-left: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            height: 24px;
+            transform: translateY(2px);
+        }
+
+        .header-badges {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .badge-status {
+            background-color: #E6F4EA;
+            color: #137333;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 16px;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .badge-status::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            background-color: var(--g-green);
+            border-radius: 50%;
+            box-shadow: 0 0 4px var(--g-green);
+        }
+
+        .badge-credit {
+            background-color: #F1F3F4;
+            color: var(--text-subtle);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 16px;
+            border-radius: 100px;
+        }
+
+        .container {
+            display: flex;
+            flex: 1;
+            padding: 20px;
+            gap: 20px;
+            height: calc(100vh - 65px);
+        }
+
+        .panel {
+            flex: 1;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
+        }
+
+        .panel:focus-within {
+            border-color: var(--g-blue);
+            box-shadow: 0 6px 16px rgba(26, 115, 232, 0.15);
+        }
+
+        .panel-header {
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-color);
+            background-color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .panel-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .dot-blue { background-color: var(--g-blue); }
+        .dot-green { background-color: var(--g-green); }
+
+        .panel-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .btn-google {
+            background-color: var(--g-blue);
+            color: #FFFFFF;
+            border: none;
+            padding: 8px 24px;
+            border-radius: 100px;
+            font-family: var(--font-google);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-google:hover {
+            background-color: #174EA6;
+            box-shadow: 0 1px 3px rgba(60,64,67,0.3);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--g-blue);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: #F8F9FA;
+            color: #174EA6;
+        }
+
+        .filename-wrapper {
+            display: flex;
+            align-items: center;
+            background: #F0F4F9;
+            border-radius: 100px;
+            padding: 4px 16px 4px 8px;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .filename-wrapper:focus-within {
+            background: #FFFFFF;
+            border-color: var(--g-blue);
+            box-shadow: inset 0 0 0 1px var(--g-blue);
+        }
+
+        .filename-input {
+            border: none;
+            background: transparent;
+            font-family: var(--font-google);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+            width: 110px;
+            padding: 4px 8px;
+            outline: none;
+            text-align: right;
+        }
+
+        .file-ext {
+            font-size: 14px;
+            color: var(--text-subtle);
+            font-weight: 600;
+        }
+
+        .editor-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            background-color: #FAFAFA;
+            position: relative;
+        }
+
+        /* NUMÉROS DE LIGNE : Propriétés strictement identiques au textarea */
+        .line-numbers {
+            padding: 20px 12px 20px 16px;
+            margin: 0;
+            background-color: #F8F9FA;
+            color: #9AA0A6;
+            font-family: var(--font-code);
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 1.6;
+            text-align: right;
+            user-select: none;
+            border: none;
+            border-right: 1px solid var(--border-color);
+            overflow-y: hidden;
+            overflow-x: hidden;
+            white-space: pre;
+            box-sizing: border-box;
+            min-width: 50px;
+        }
+
+        /* ÉDITEUR DE CODE : Match parfait de typographie et d'espacement */
+        textarea {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 20px 16px;
+            margin: 0;
+            font-family: var(--font-code);
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 1.6;
+            color: var(--text-dark);
+            resize: none;
+            background-color: transparent;
+            white-space: pre;
+            word-wrap: normal;
+            overflow-x: auto;
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
+
+        textarea::-webkit-scrollbar, .container::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        textarea::-webkit-scrollbar-thumb, .container::-webkit-scrollbar-thumb {
+            background: #DADCE0;
+            border-radius: 10px;
+        }
+        textarea::-webkit-scrollbar-thumb:hover, .container::-webkit-scrollbar-thumb:hover {
+            background: #BDC1C6;
+        }
+
+        iframe {
+            flex: 1;
+            border: none;
+            background-color: #FFFFFF;
+        }
+
+        .btn-icon {
+            background: transparent;
+            color: var(--text-subtle);
+            border: none;
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .btn-icon:hover {
+            background-color: #E8EAED;
+            color: var(--text-dark);
+        }
+
+        body.preview-fullscreen header { display: none; }
+        body.preview-fullscreen .container { padding: 0; height: 100vh; gap: 0; }
+        body.preview-fullscreen .panel:first-child { display: none; }
+        body.preview-fullscreen .panel:last-child { border-radius: 0; border: none; }
+
+        body.code-fullscreen header { display: none; }
+        body.code-fullscreen .container { padding: 0; height: 100vh; gap: 0; }
+        body.code-fullscreen .panel:last-child { display: none; }
+        body.code-fullscreen .panel:first-child { border-radius: 0; border: none; }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                height: auto;
+                overflow-y: auto;
+                padding: 12px;
+                gap: 12px;
+            }
+            .panel {
+                min-height: 400px;
+                flex: none;
+            }
+            header {
+                padding: 12px;
+            }
+            .app-title {
+                display: none;
+            }
+            .badge-credit {
+                display: none;
+            }
+            .panel-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+                padding: 12px;
+            }
+            .panel-actions {
+                width: 100%;
+                justify-content: space-between;
+                flex-wrap: wrap;
+            }
+            .filename-wrapper {
+                flex: 1;
+                justify-content: space-between;
+            }
+            .header-left {
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <div class="google-logo">
+                <span class="g-blue">G</span>
+                <span class="g-red">o</span>
+                <span class="g-yellow">o</span>
+                <span class="g-blue">g</span>
+                <span class="g-green">l</span>
+                <span class="g-red">e</span>
+                <span class="app-title">HTML Studio</span>
+            </div>
+            
+            <div class="lang-toggle">
+                <button id="btn-fr" class="lang-btn active" onclick="setLang('fr')">French</button>
+                <button id="btn-en" class="lang-btn" onclick="setLang('en')">English</button>
+            </div>
+        </div>
+
+        <div class="header-badges">
+            <div class="badge-status" id="ui-status">
+                Synchronisé en direct
+            </div>
+            <div class="badge-credit" id="ui-credit">
+                Crédit HTML : Foufy_2.0
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="panel">
+            <div class="panel-header">
+                <div class="panel-title">
+                    <span class="dot dot-blue"></span>
+                    <span id="ui-panel-editor">Éditeur HTML & CSS</span>
+                </div>
+                <div class="panel-actions">
+                    <button class="btn-icon" id="fullscreen-code-btn" onclick="toggleCodeFullscreen()" title="Éditeur plein écran">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+                        </svg>
+                    </button>
+
+                    <button id="ui-btn-reset" class="btn-google btn-secondary" onclick="resetCode()">Réinitialiser</button>
+                    
+                    <div class="filename-wrapper">
+                        <input type="text" id="filename-input" class="filename-input" value="mon_design" title="Nom du fichier">
+                        <span class="file-ext">.html</span>
+                    </div>
+                    <button id="ui-btn-download" class="btn-google" onclick="downloadCode()">Télécharger</button>
+                </div>
+            </div>
+            
+            <div class="editor-container">
+                <div id="line-numbers" class="line-numbers">1</div>
+                <textarea id="editor" wrap="off" spellcheck="false" placeholder="Entrez votre code HTML ici..."></textarea>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-header">
+                <div class="panel-title">
+                    <span class="dot dot-green"></span>
+                    <span id="ui-panel-preview">Aperçu du résultat</span>
+                </div>
+                <button class="btn-icon" id="fullscreen-btn" onclick="toggleFullscreen()" title="Plein écran">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+                    </svg>
+                </button>
+            </div>
+            <iframe id="preview"></iframe>
+        </div>
+    </div>
+
+    <script>
+        const editor = document.getElementById('editor');
+        const preview = document.getElementById('preview');
+        const fullscreenBtn = document.getElementById('fullscreen-btn');
+        const fullscreenCodeBtn = document.getElementById('fullscreen-code-btn');
+        const lineNumbers = document.getElementById('line-numbers');
+
+        let currentLang = 'fr';
+
+        const defaultContentFR = `<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 500;
+        padding: 40px;
+        background-color: #F0F4F9;
+        color: #1F1F1F;
+    }
+    h1 {
+        font-weight: 700;
+        font-size: 32px;
+        margin-bottom: 16px;
+        letter-spacing: -0.5px;
+    }
+    span.blue { color: #1A73E8; }
+    span.red { color: #EA4335; }
+    span.yellow { color: #FBBC04; }
+    span.green { color: #34A853; }
+    
+    .card {
+        background: #FFFFFF;
+        border: 1px solid #E3E3E3;
+        border-radius: 20px;
+        padding: 24px;
+        max-width: 420px;
+        margin-top: 24px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .card h3 {
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+</style>
+
+<h1>
+    <span class="blue">G</span><span class="red">o</span><span class="yellow">o</span><span class="blue">g</span><span class="green">l</span><span class="red">e</span> 
+    Design
+</h1>
+<p>Cet aperçu se met à jour instantanément lorsque vous modifiez le code à gauche !</p>
+
+<div class="card">
+    <h3>Design Material 3</h3>
+    <p style="color: #444746; font-size: 15px; line-height: 1.5;">
+        Des coins arrondis plus prononcés, des ombres douces et une typographie Google Font bien lisible.
+    </p>
+</div>`;
+
+        const defaultContentEN = `<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 500;
+        padding: 40px;
+        background-color: #F0F4F9;
+        color: #1F1F1F;
+    }
+    h1 {
+        font-weight: 700;
+        font-size: 32px;
+        margin-bottom: 16px;
+        letter-spacing: -0.5px;
+    }
+    span.blue { color: #1A73E8; }
+    span.red { color: #EA4335; }
+    span.yellow { color: #FBBC04; }
+    span.green { color: #34A853; }
+    
+    .card {
+        background: #FFFFFF;
+        border: 1px solid #E3E3E3;
+        border-radius: 20px;
+        padding: 24px;
+        max-width: 420px;
+        margin-top: 24px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .card h3 {
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+</style>
+
+<h1>
+    <span class="blue">G</span><span class="red">o</span><span class="yellow">o</span><span class="blue">g</span><span class="green">l</span><span class="red">e</span> 
+    Design
+</h1>
+<p>This preview updates instantly when you modify the code on the left!</p>
+
+<div class="card">
+    <h3>Material 3 Design</h3>
+    <p style="color: #444746; font-size: 15px; line-height: 1.5;">
+        More pronounced rounded corners, soft shadows, and highly readable Google Font typography.
+    </p>
+</div>`;
+
+        let defaultContent = defaultContentFR;
+
+        const i18n = {
+            fr: {
+                status: "Synchronisé en direct",
+                credit: "Crédit HTML : Foufy_2.0",
+                editor: "Éditeur HTML & CSS",
+                reset: "Réinitialiser",
+                download: "Télécharger",
+                preview: "Aperçu du résultat",
+                placeholder: "Entrez votre code HTML ici...",
+                filenameTitle: "Nom du fichier",
+                fullscreenPreview: "Plein écran",
+                fullscreenCode: "Éditeur plein écran"
+            },
+            en: {
+                status: "Live synchronized",
+                credit: "HTML credit: Foufy_2.0",
+                editor: "HTML & CSS Editor",
+                reset: "Reset",
+                download: "Download",
+                preview: "Result Preview",
+                placeholder: "Enter your HTML code here...",
+                filenameTitle: "Filename",
+                fullscreenPreview: "Fullscreen",
+                fullscreenCode: "Fullscreen Editor"
+            }
+        };
+
+        function setLang(lang) {
+            currentLang = lang;
+            
+            document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            
+            document.getElementById('ui-status').innerText = i18n[lang].status;
+            document.getElementById('ui-credit').innerText = i18n[lang].credit;
+            document.getElementById('ui-panel-editor').innerText = i18n[lang].editor;
+            document.getElementById('ui-btn-reset').innerText = i18n[lang].reset;
+            document.getElementById('ui-btn-download').innerText = i18n[lang].download;
+            document.getElementById('ui-panel-preview').innerText = i18n[lang].preview;
+            document.getElementById('editor').placeholder = i18n[lang].placeholder;
+            
+            document.getElementById('filename-input').title = i18n[lang].filenameTitle;
+            if (!document.body.classList.contains('preview-fullscreen')) fullscreenBtn.title = i18n[lang].fullscreenPreview;
+            if (!document.body.classList.contains('code-fullscreen')) fullscreenCodeBtn.title = i18n[lang].fullscreenCode;
+
+            if (lang === 'en' && editor.value === defaultContentFR) {
+                editor.value = defaultContentEN;
+                defaultContent = defaultContentEN;
+                updatePreview();
+                updateLineNumbers();
+            } else if (lang === 'fr' && editor.value === defaultContentEN) {
+                editor.value = defaultContentFR;
+                defaultContent = defaultContentFR;
+                updatePreview();
+                updateLineNumbers();
+            } else {
+                defaultContent = lang === 'fr' ? defaultContentFR : defaultContentEN;
+            }
+        }
+
+        function updatePreview() {
+            const doc = preview.contentDocument || preview.contentWindow.document;
+            doc.open();
+            doc.write(editor.value);
+            doc.close();
+        }
+
+        function updateLineNumbers() {
+            const linesCount = editor.value.split('\n').length;
+            const numbers = Array.from({ length: linesCount }, (_, i) => i + 1).join('\n');
+            lineNumbers.textContent = numbers;
+            
+            // Correction d'alignement : on ajoute 8px au padding si une scrollbar horizontale est présente
+            const hasHorizontalScrollbar = editor.scrollWidth > editor.clientWidth;
+            lineNumbers.style.paddingBottom = hasHorizontalScrollbar ? '28px' : '20px';
+        }
+
+        // SYNCHRONISATION DU DEFILEMENT VERTICAL
+        editor.addEventListener('scroll', () => {
+            // On vérifie aussi pendant le scroll (utile au cas où la fenêtre est redimensionnée)
+            const hasHorizontalScrollbar = editor.scrollWidth > editor.clientWidth;
+            lineNumbers.style.paddingBottom = hasHorizontalScrollbar ? '28px' : '20px';
+            
+            lineNumbers.scrollTop = editor.scrollTop;
+        });
+
+        function resetCode() {
+            editor.value = defaultContent;
+            updatePreview();
+            updateLineNumbers();
+        }
+
+        function downloadCode() {
+            const codeContent = editor.value;
+            let filename = document.getElementById('filename-input').value.trim();
+            if(!filename) filename = 'mon_design';
+
+            const blob = new Blob([codeContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename + '.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function toggleFullscreen() {
+            document.body.classList.toggle('preview-fullscreen');
+            
+            if (document.body.classList.contains('preview-fullscreen')) {
+                fullscreenBtn.innerHTML = `
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>
+                    </svg>`;
+                fullscreenBtn.title = currentLang === 'fr' ? "Quitter le plein écran" : "Exit fullscreen";
+            } else {
+                fullscreenBtn.innerHTML = `
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+                    </svg>`;
+                fullscreenBtn.title = i18n[currentLang].fullscreenPreview;
+            }
+        }
+
+        function toggleCodeFullscreen() {
+            document.body.classList.toggle('code-fullscreen');
+            
+            if (document.body.classList.contains('code-fullscreen')) {
+                fullscreenCodeBtn.innerHTML = `
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>
+                    </svg>`;
+                fullscreenCodeBtn.title = currentLang === 'fr' ? "Quitter le plein écran éditeur" : "Exit editor fullscreen";
+            } else {
+                fullscreenCodeBtn.innerHTML = `
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+                    </svg>`;
+                fullscreenCodeBtn.title = i18n[currentLang].fullscreenCode;
+            }
+        }
+
+        editor.value = defaultContent;
+        updatePreview();
+        updateLineNumbers();
+
+        editor.addEventListener('input', () => {
+            updatePreview();
+            updateLineNumbers();
+        });
+    </script>
+</body>
+</html>
